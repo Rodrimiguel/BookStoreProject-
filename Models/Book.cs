@@ -9,6 +9,8 @@ public class Book
 
     public string Name {get;set;}
 
+    public string Autor {get;set;}
+
     public string Editorial {get;set;}
     
     public decimal Price {get;set;}
