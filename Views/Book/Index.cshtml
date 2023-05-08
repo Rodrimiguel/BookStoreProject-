@@ -1,4 +1,5 @@
-@model IEnumerable<BOOKSTORE00.Models.Book>
+@using BOOKSTORE00.ViewModels;
+@model BookViewModel;
 
 @{
     ViewData["Title"] = "Index";
@@ -9,32 +10,40 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="row">
+    <form method = "get" asp-action="Index" asp-controller="Menu">
+        <div class = "col-6 form-group">
+            <input class = "form-control" asp-for = "NameFilter" />
+        </div>
+        <button class="btn"type="submit">Buscar</button>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Books[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Autor)
+                @Html.DisplayNameFor(model => model.Books[0].Autor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Editorial)
+                @Html.DisplayNameFor(model => model.Books[0].Editorial)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Books[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Condition)
+                @Html.DisplayNameFor(model => model.Books[0].Condition)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.withcdordvd)
+                @Html.DisplayNameFor(model => model.Books[0].withcdordvd)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Books) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

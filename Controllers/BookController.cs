@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
+using BOOKSTORE00.ViewModels;
 
 namespace BOOKSTORE00.Controllers
 {
@@ -20,12 +21,29 @@ namespace BOOKSTORE00.Controllers
         }
 
         // GET: Book
-        public async Task<IActionResult> Index()
+        // FILTRO PARA BUSCAR POR NOMBRE.
+        public async Task<IActionResult> Index(string NameFilter) // va a recibir un nombre // Se listan todos los elementos de la tabla Libro.
         {
-              return _context.Book != null ? 
-                          View(await _context.Book.ToListAsync()) :
-                          Problem("Entity set 'BookContext.Book'  is null.");
-        }
+            var query = from book in _context.Book select book;// sentencia solo crea una query y la tengo en esta variable.
+                                                               // Pone una query en la variable query/define una query (query)
+                                                               //Arma query pero no la ejecuta.
+
+            if (!string.IsNullOrEmpty(NameFilter)) // Si el nombre no es nulo o vacio lo niega.
+            {// Si tiene un valor entra aca.
+                query = query.Where(x => x.Name.Contains(NameFilter)); //CADA ELEMENTO EN LA PROPIEDAD NOMBRE QUE CONTENGA POR PARAMETRO SE TRAE.
+                                                                 //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
+            }
+
+            var model = new BookViewModel(); // instanciamos
+            model.Books = await query.ToListAsync();// generamos lista de elementos
+
+            return _context.Book != null ?
+                        View(model) : // Lo convierte en lista.
+                                                          // ejecutar una query y devolver una lista.
+                        Problem("Entity set 'BookContext.Book'  is null."); // Luego la lista recupera una lista de elementos que tiene todos los elementos de la tabla.
+        } //http://localhost:5210/Book?name=El
+
+
 
         // GET: Book/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -150,14 +168,14 @@ namespace BOOKSTORE00.Controllers
             {
                 _context.Book.Remove(book);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-          return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
