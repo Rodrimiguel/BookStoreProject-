@@ -1,5 +1,5 @@
 @using BOOKSTORE00.ViewModels;
-@model BookViewModel;
+@model BookViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -11,11 +11,11 @@
     <a asp-action="Create">Create New</a>
 </p>
 <div class="row">
-    <form method = "get" asp-action="Index" asp-controller="Menu">
-        <div class = "col-6 form-group">
-            <input class = "form-control" asp-for = "NameFilter" />
+    <form method="get" asp-action="Index" asp-controller="Book">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilter" />
         </div>
-        <button class="btn"type="submit">Buscar</button>
+        <button class="btn" type="submit">Buscar</button>
     </form>
 </div>
 <table class="table">
@@ -39,36 +39,36 @@
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].withcdordvd)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Books) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <th>
-                @Html.DisplayNameFor(model => item.Autor)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editorial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Condition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.withcdordvd)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Editorial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.withcdordvd)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
