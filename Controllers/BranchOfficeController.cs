@@ -58,7 +58,9 @@ namespace BOOKSTORE00.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone,BookId")] BranchOffice branchOffice)
-        {
+        {   
+            ModelState.Remove("Book");
+
             if (ModelState.IsValid)
             {
                 _context.Add(branchOffice);

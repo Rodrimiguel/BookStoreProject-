@@ -4,11 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>BRANCHOFFICE</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@* <div class="row">
+    <form method="get" asp-action="Index" asp-controller="Book">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilter" />
+        </div>
+        <button class="btn" type="submit">BUSCAR</button>
+    </form>
+</div> *@
+
 <table class="table">
     <thead>
         <tr>
@@ -57,3 +67,23 @@
 }
     </tbody>
 </table>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon">
+    <title>Images</title>
+    <style>
+        body {
+            height: 100vh;
+            background-image: url("https://wallpaper.dog/large/10824468.jpg");
+             color:blue;
+            padding: 10px;
+            background-position: auto;
+            background-size: cover ;
+            background-position: fixed;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+</html>
