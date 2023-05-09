@@ -46,8 +46,15 @@ namespace BOOKSTORE00.Controllers
             if (!string.IsNullOrEmpty(NameFilter)) // Si el nombre no es nulo o vacio lo niega.
             {// Si tiene un valor entra aca.
                 query = query.Where(x => x.Name.Contains(NameFilter)); //CADA ELEMENTO EN LA PROPIEDAD NOMBRE QUE CONTENGA POR PARAMETRO SE TRAE.
-            }
-            //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
+            } //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
+            
+            //-------------------------------------------------------------------------------------------------------------------
+            var branches = query.Include(x=> x.Branches).Select(x=> x.Branches); // Incluime la propiedad Branches (sucursales) / Seleccion sucursales.
+            // Traerme los datos de esta relación (INCLUDE)
+
+            //--------------------------------------------------------------------------------------------------------------------
+            
+            
             var model = new BookViewModel();
              // ejecutar una query y devolver una lista.
             model.Books = await query.ToListAsync();
@@ -59,23 +66,33 @@ namespace BOOKSTORE00.Controllers
         }
 
 
-
         // GET: Book/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id) // viene con llamada get (url)
         {
             if (id == null || _context.Book == null)
             {
                 return NotFound();
             }
-
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+                                                                    //Incluíme la relación .Traeme los datos de la relacion 
+            var book = await _context.Book.Include(x=> x.Branches).FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
             if (book == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            var viewModel = new BookDetailViewModel(); // INSTANCIA DE VIEWMODEL
+            viewModel.Name = book.Name;
+            viewModel.Autor = book.Autor.ToString();
+            viewModel.Editorial = book.Editorial;
+            viewModel.Price = book.Price;
+            //viewModel.BookCondition = book.BookCondition;
+            viewModel.withcdordvd = book.withcdordvd;
+            viewModel.Branches = book.Branches != null ? book.Branches : new List<BranchOffice>();
+            // SI ES DISTINTO DE NULL ? EJECUTA BOOK.BRANCHES (SI ESTO ES IGUAL A NULL) -- HACE UNA LISTA DE SUCURSALES.
+                                        // ME MANDA LISTA IGUAL // SI ESTO ES IGUAL A NULL(ENTONCES ME MANDA A UNA LISTA VACIA)
+            
+
+            return View(viewModel);
         }
 
         // GET: Book/Create
