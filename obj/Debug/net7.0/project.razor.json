@@ -18665,6 +18665,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\BranchOffice\\Create.cshtml",
+      "TargetPath": "Views\\BranchOffice\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\BranchOffice\\Index.cshtml",
+      "TargetPath": "Views\\BranchOffice\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
@@ -18675,6 +18685,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\BranchOffice\\Delete.cshtml",
+      "TargetPath": "Views\\BranchOffice\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\BranchOffice\\Edit.cshtml",
+      "TargetPath": "Views\\BranchOffice\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -18682,6 +18702,11 @@
     {
       "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\BranchOffice\\Details.cshtml",
+      "TargetPath": "Views\\BranchOffice\\Details.cshtml",
       "FileKind": "mvc"
     },
     {
