@@ -20,28 +20,43 @@ namespace BOOKSTORE00.Controllers
             _context = context;
         }
 
+
+
+        //  public async Task<IActionResult> Index1 (string name) 
+        //  {
+        //          var query = from book in  _context.Book select book;
+
+        //        if (!string.IsNullOrEmpty(name)) 
+        //        {
+        //              query = query.Where(x => x.Name.Contains(name));
+        //        }
+        //        return _context.Book != null ? 
+        //                    View(await query.ToListAsync()) :
+        //                    Problem("Entity set 'BookContext.Book'  is null.");
+        //  } 
+
         // GET: Book
         // FILTRO PARA BUSCAR POR NOMBRE.
         public async Task<IActionResult> Index(string NameFilter) // va a recibir un nombre // Se listan todos los elementos de la tabla Libro.
         {
-            var query = from book in _context.Book select book;// sentencia solo crea una query y la tengo en esta variable.
-                                                               // Pone una query en la variable query/define una query (query)
-                                                               //Arma query pero no la ejecuta.
+            var query = from book in _context.Book select book; // sentencia solo crea una query y la tengo en esta variable.
+            // Pone una query en la variable query/define una query (query)
+            //Arma query pero no la ejecuta.
 
             if (!string.IsNullOrEmpty(NameFilter)) // Si el nombre no es nulo o vacio lo niega.
             {// Si tiene un valor entra aca.
                 query = query.Where(x => x.Name.Contains(NameFilter)); //CADA ELEMENTO EN LA PROPIEDAD NOMBRE QUE CONTENGA POR PARAMETRO SE TRAE.
-                                                                 //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
             }
+            //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
+            var model = new BookViewModel();
+             // ejecutar una query y devolver una lista.
+            model.Books = await query.ToListAsync();
 
-            var model = new BookViewModel(); // instanciamos
-            model.Books = await query.ToListAsync();// generamos lista de elementos
-
-            return _context.Book != null ?
-                        View(model) : // Lo convierte en lista.
-                                                          // ejecutar una query y devolver una lista.
-                        Problem("Entity set 'BookContext.Book'  is null."); // Luego la lista recupera una lista de elementos que tiene todos los elementos de la tabla.
-        } //http://localhost:5210/Book?name=El
+            return _context.Book != null ? // Lo convierte en lista.
+                        View(model) :
+                         // ejecutar una query y devolver una lista.
+                        Problem("Entity set 'BookContext.Book'  is null.");// Luego la lista recupera una lista de elementos que tiene todos los elementos de la tabla.
+        }
 
 
 
