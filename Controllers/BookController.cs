@@ -22,7 +22,7 @@ namespace BOOKSTORE00.Controllers
 
 
 
-        //  public async Task<IActionResult> Index1 (string name) 
+        //  public async Task<IActionResult> Index (string name) 
         //  {
         //          var query = from book in  _context.Book select book;
 
@@ -35,34 +35,32 @@ namespace BOOKSTORE00.Controllers
         //                    Problem("Entity set 'BookContext.Book'  is null.");
         //  } 
 
-        // GET: Book
+        // LLAMADA GET: Book
         // FILTRO PARA BUSCAR POR NOMBRE.
-        public async Task<IActionResult> Index(string NameFilter) // va a recibir un nombre // Se listan todos los elementos de la tabla Libro.
+        public async Task<IActionResult> Index(string nameFilter) // va a recibir un nombre // Se listan todos los elementos de la tabla Libro.
         {
             var query = from book in _context.Book select book; // sentencia solo crea una query y la tengo en esta variable.
-            // Pone una query en la variable query/define una query (query)
+            // Pone una query en la variable query/define una query (query) // LISTADO DE NOMBRES DE LIBRO.
             //Arma query pero no la ejecuta.
 
-            if (!string.IsNullOrEmpty(NameFilter)) // Si el nombre no es nulo o vacio lo niega.
+            if (!string.IsNullOrEmpty(nameFilter)) // Si el nombre no es nulo o vacio lo niega.
             {// Si tiene un valor entra aca.
-                query = query.Where(x => x.Name.Contains(NameFilter)); //CADA ELEMENTO EN LA PROPIEDAD NOMBRE QUE CONTENGA POR PARAMETRO SE TRAE.
+                query = query.Where(x => x.Name.Contains(nameFilter)); //CADA ELEMENTO EN LA PROPIEDAD NOMBRE QUE CONTENGA POR PARAMETRO QUE ME LO TRAE.
             } //Filtrame todos los elementos que en la propiedad name contenga lo que me venga en el filtro.
-            
+
             //-------------------------------------------------------------------------------------------------------------------
-            var branches = query.Include(x=> x.Branches).Select(x=> x.Branches); // Incluime la propiedad Branches (sucursales) / Seleccion sucursales.
-            // Traerme los datos de esta relación (INCLUDE)
+            var branches = query.Include(x => x.Branches).Select(x => x.Branches); // Incluime la propiedad Branches (sucursales) / Seleccion sucursales.
+                                                                                   // Traerme los datos de esta relación (INCLUDE)
 
             //--------------------------------------------------------------------------------------------------------------------
-            
-            
             var model = new BookViewModel();
-             // ejecutar una query y devolver una lista.
-            model.Books = await query.ToListAsync();
-
-            return _context.Book != null ? // Lo convierte en lista.
-                        View(model) :
-                         // ejecutar una query y devolver una lista.
-                        Problem("Entity set 'BookContext.Book'  is null.");// Luego la lista recupera una lista de elementos que tiene todos los elementos de la tabla.
+            // ejecutar una query y devolver una lista.
+            model.Books = await query.ToListAsync(); // QUERY QUE ENVIAMOS A LA VISTA.
+            //CONTEXT SE INYECTA EN EL CONTROLADOR.
+            return _context.Book != null ? // Lo convierte en lista ToListAsync(); 
+                        View(model) : // NO RETORNA UNA LISTA DE ELEMENTOS LIBROS (RETORNA EL NEW MODEL)
+                        // ejecutar una query y devolver una lista.
+                        Problem("Entity set 'BookContext.Book'  is null.");// Luego la VISTA recupera una lista de elementos que tiene todos los elementos de la tabla.
         }
 
 
@@ -73,8 +71,8 @@ namespace BOOKSTORE00.Controllers
             {
                 return NotFound();
             }
-                                                                    //Incluíme la relación .Traeme los datos de la relacion 
-            var book = await _context.Book.Include(x=> x.Branches).FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
+            //Incluíme la relación .Traeme los datos de la relacion 
+            var book = await _context.Book.Include(x => x.Branches).FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
             if (book == null)
             {
                 return NotFound();
@@ -89,8 +87,8 @@ namespace BOOKSTORE00.Controllers
             viewModel.withcdordvd = book.withcdordvd;
             viewModel.Branches = book.Branches != null ? book.Branches : new List<BranchOffice>();
             // SI ES DISTINTO DE NULL ? EJECUTA BOOK.BRANCHES (SI ESTO ES IGUAL A NULL) -- HACE UNA LISTA DE SUCURSALES.
-                                        // ME MANDA LISTA IGUAL // SI ESTO ES IGUAL A NULL(ENTONCES ME MANDA A UNA LISTA VACIA)
-            
+            // ME MANDA LISTA IGUAL // SI ESTO ES IGUAL A NULL(ENTONCES ME MANDA A UNA LISTA VACIA)
+
 
             return View(viewModel);
         }
