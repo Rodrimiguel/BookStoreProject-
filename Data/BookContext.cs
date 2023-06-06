@@ -15,6 +15,7 @@ namespace BOOKSTORE00.Data
         }
 
         public DbSet<BOOKSTORE00.Models.Book> Book { get; set; } = default!;
+        // Agregado de propiedad para manipular el objeto book que es una tabla en nuestra base de datos.
 
         public DbSet<BOOKSTORE00.Models.BranchOffice> BranchOffice { get; set; } = default!;
 
