@@ -1,5 +1,5 @@
-@using BOOKSTORE00.ViewModels;
-@model BookDetailViewModel
+@model BOOKSTORE00.Models.Book
+
 
 @{
     ViewData["Title"] = "Details";
@@ -42,14 +42,7 @@
             @Html.DisplayFor(model => model.withcdordvd)
         </dd>
     </dl>
-    <div>
-        <ol>
-            @foreach (var item in Model.Branches) // Lista ordenada de la coleccion que queremos iterar. (Sucursales)
-            {
-                <li>@item.Name</li>
-            }
-        </ol>
-    </div>
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

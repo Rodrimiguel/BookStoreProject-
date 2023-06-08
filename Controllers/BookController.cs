@@ -56,20 +56,10 @@ namespace BOOKSTORE00.Controllers
                 return NotFound();
             }
 
-            // var viewModel = new BookDetailViewModel(); // INSTANCIA DE VIEWMODEL
-            // viewModel.Name = book.Name;
-            // viewModel.Autor = book.Autor.ToString();
-            // viewModel.Editorial = book.Editorial;
-            // viewModel.Price = book.Price;
-            // //viewModel.BookCondition = book.BookCondition;
-            // viewModel.withcdordvd = book.withcdordvd;
-            // viewModel.Branches = book.Branches != null ? book.Branches : new List<BranchOffice>();
-            // // SI ES DISTINTO DE NULL ? EJECUTA BOOK.BRANCHES (SI ESTO ES IGUAL A NULL) -- HACE UNA LISTA DE SUCURSALES.
-            // // ME MANDA LISTA IGUAL // SI ESTO ES IGUAL A NULL(ENTONCES ME MANDA A UNA LISTA VACIA)
-
-
             return View(book);
+            
         }
+        
 
         // GET: Book/Create
         public IActionResult Create()
