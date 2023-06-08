@@ -22,10 +22,12 @@ namespace BOOKSTORE00.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<Book>()
             .HasMany(p => p.Branches)
             .WithOne(p => p.Book)
             .HasForeignKey(p => p.BookId);
+            */
         }
     }
 }

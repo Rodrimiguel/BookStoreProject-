@@ -31,9 +31,9 @@ namespace BOOKSTORE00.Controllers
                 
             } 
             
-            var query1 = await query.ToListAsync();
+        
             var viewmodel = new BookViewModel();
-            viewmodel.Books = query1; 
+            viewmodel.Books = await query.ToListAsync(); 
             
             return _context.Book != null ?  
                         View(viewmodel) : 
@@ -49,9 +49,10 @@ namespace BOOKSTORE00.Controllers
             {
                 return NotFound();
             }
-            //Incluíme la relación .Traeme los datos de la relacion 
-            var book = await _context.Book.Include(x => x.Branches).FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
-            if (book == null)
+            //Incluíme la relación .Traeme los datos de la relacion
+            
+            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
+            if (book == null) 
             {
                 return NotFound();
             }
