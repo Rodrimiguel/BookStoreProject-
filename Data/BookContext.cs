@@ -28,6 +28,7 @@ namespace BOOKSTORE00.Data
             .WithOne(p => p.Book)
             .HasForeignKey(p => p.BookId);
             */
+            
         }
     }
 }
