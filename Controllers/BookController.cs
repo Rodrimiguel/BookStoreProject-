@@ -73,15 +73,26 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] BookCreateViewModel bookview)
         {
+        
             if (ModelState.IsValid)
             {
+                
+                var book = new Book {
+                    Name = bookview.Name,
+                    Autor = bookview.Autor,
+                    Editorial = bookview.Editorial,
+                    Price = bookview.Price,
+                    Condition = bookview.Condition,
+                    withcdordvd = bookview.withcdordvd
+                };
+                
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View(bookview);
         }
 
         // GET: Book/Edit/5

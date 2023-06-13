@@ -49,7 +49,7 @@ namespace BOOKSTORE00.Controllers
         // GET: BranchOffice/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id");
+            ViewData["Books"] = _context.Book.ToList();
             return View();
         }
 
