@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
+using BOOKSTORE00.ViewModels;
 
 namespace BOOKSTORE00.Controllers
 {
@@ -57,18 +58,24 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
+        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeCreateViewModel branchOfficeView)
         {   
             ModelState.Remove("Book");
 
             if (ModelState.IsValid)
             {
+                var branchOffice = new BranchOffice{
+                    Name = branchOfficeView.Name,
+                    Adress = branchOfficeView.Adress,
+                    Mail = branchOfficeView.Mail,
+                    Phone = branchOfficeView.Phone,
+                };
                 _context.Add(branchOffice);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(branchOffice);
+            return View(branchOfficeView);
         }
 
         // GET: BranchOffice/Edit/5
@@ -93,23 +100,24 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeEditViewModel branchOfficeviewedit)
         {
-            if (id != branchOffice.Id)
+            if (id != branchOfficeviewedit.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
-            {
+            {   
+                
                 try
                 {
-                    _context.Update(branchOffice);
+                    _context.Update(branchOfficeviewedit);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchOfficeExists(branchOffice.Id))
+                    if (!BranchOfficeExists(branchOfficeviewedit.Id))
                     {
                         return NotFound();
                     }
@@ -121,7 +129,7 @@ namespace BOOKSTORE00.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(branchOffice);
+            return View(branchOfficeviewedit);
         }
 
         // GET: BranchOffice/Delete/5
