@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BOOKSTORE00.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20230509121542_AddBranchOfficeModel1")]
-    partial class AddBranchOfficeModel1
+    [Migration("20230613083527_Initial - ManytoManyR EF")]
+    partial class InitialManytoManyREF
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,9 +61,6 @@ namespace BOOKSTORE00.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Mail")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -78,25 +75,37 @@ namespace BOOKSTORE00.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.ToTable("BranchOffice");
                 });
 
-            modelBuilder.Entity("BOOKSTORE00.Models.BranchOffice", b =>
+            modelBuilder.Entity("BookBranchOffice", b =>
                 {
-                    b.HasOne("BOOKSTORE00.Models.Book", "Book")
-                        .WithMany("Branches")
-                        .HasForeignKey("BookId")
+                    b.Property<int>("BooksId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BranchesId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BooksId", "BranchesId");
+
+                    b.HasIndex("BranchesId");
+
+                    b.ToTable("BookBranchOffice");
+                });
+
+            modelBuilder.Entity("BookBranchOffice", b =>
+                {
+                    b.HasOne("BOOKSTORE00.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("BOOKSTORE00.Models.Book", b =>
-                {
-                    b.Navigation("Branches");
+                    b.HasOne("BOOKSTORE00.Models.BranchOffice", null)
+                        .WithMany()
+                        .HasForeignKey("BranchesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

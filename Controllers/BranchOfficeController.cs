@@ -22,7 +22,7 @@ namespace BOOKSTORE00.Controllers
         // GET: BranchOffice
         public async Task<IActionResult> Index()
         {
-            var bookContext = _context.BranchOffice.Include(b => b.Book);
+            var bookContext = _context.BranchOffice.Include(b => b.Books);
             return View(await bookContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace BOOKSTORE00.Controllers
             }
 
             var branchOffice = await _context.BranchOffice
-                .Include(b => b.Book)
+                .Include(b => b.Books)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (branchOffice == null)
             {
@@ -57,7 +57,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone,BookId")] BranchOffice branchOffice)
+        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
         {   
             ModelState.Remove("Book");
 
@@ -67,7 +67,7 @@ namespace BOOKSTORE00.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", branchOffice.BookId);
+            
             return View(branchOffice);
         }
 
@@ -84,7 +84,7 @@ namespace BOOKSTORE00.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", branchOffice.BookId);
+           
             return View(branchOffice);
         }
 
@@ -93,7 +93,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Adress,Mail,Phone,BookId")] BranchOffice branchOffice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
         {
             if (id != branchOffice.Id)
             {
@@ -120,7 +120,7 @@ namespace BOOKSTORE00.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id", branchOffice.BookId);
+            
             return View(branchOffice);
         }
 
@@ -133,7 +133,7 @@ namespace BOOKSTORE00.Controllers
             }
 
             var branchOffice = await _context.BranchOffice
-                .Include(b => b.Book)
+                .Include(b => b.Books)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (branchOffice == null)
             {

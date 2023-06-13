@@ -8,20 +8,17 @@ public class BranchOffice
 {
     public int Id { get; set; }
 
-    [Display(Name="NOMBRE")]
+    [Display(Name = "NOMBRE")]
     public string Name { get; set; }
 
-    [Display(Name="DIRECCIÓN")]
+    [Display(Name = "DIRECCIÓN")]
     public string Adress { get; set; }
 
-    [Display(Name="CORREO ELECTRÓNICO")]
+    [Display(Name = "CORREO ELECTRÓNICO")]
     public string Mail { get; set; }
 
-    [Display(Name="TELÉFONO")]
+    [Display(Name = "TELÉFONO")]
     public string Phone { get; set; }
 
-    [Display(Name="LIBROID")]
-    public int BookId { get; set; }
-    public virtual Book Book { get; set; } // Cuando me quiera traer el objeto mapeado: Libro. / Me va a traer la relación si yo se lo pido.
-                                            // Carga peresoza -  / Virtual (mejor rendimiento)
+    public virtual List<Book> Books { get; set; }
 }
