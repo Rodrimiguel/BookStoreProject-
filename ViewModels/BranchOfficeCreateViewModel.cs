@@ -20,6 +20,6 @@ public class BranchOfficeCreateViewModel
     public string Phone { get; set; }
 
 
-    public List <int> BookIds {get;set;}
+    //public List <int> BookIds {get;set;}
 
 }

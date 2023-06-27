@@ -58,19 +58,19 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone,BookIds")] BranchOfficeCreateViewModel branchOfficeView)
+        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeCreateViewModel branchOfficeView)
         {   
             
             if (ModelState.IsValid)
             {
-                var books = _context.Book.Where(x=> branchOfficeView.BookIds.Contains(x.Id)).ToList();
+                //var books = _context.Book.Where(x=> branchOfficeView.BookIds.Contains(x.Id)).ToList();
 
                 var branchOffice = new BranchOffice{
                     Name = branchOfficeView.Name,
                     Adress = branchOfficeView.Adress,
                     Mail = branchOfficeView.Mail,
                     Phone = branchOfficeView.Phone,
-                    Books = books
+                   // Books = books,               
                 };
 
                 _context.Add(branchOffice);
@@ -78,7 +78,7 @@ namespace BOOKSTORE00.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(branchOfficeView);
+            return View(branchOfficeView); // cuando el modelo no es válido
         }
 
         // GET: BranchOffice/Edit/5

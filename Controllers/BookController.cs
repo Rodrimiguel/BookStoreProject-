@@ -85,7 +85,7 @@ namespace BOOKSTORE00.Controllers
                     Editorial = bookview.Editorial,
                     Price = bookview.Price,
                     Condition = bookview.Condition,
-                    withcdordvd = bookview.withcdordvd
+                    withcdordvd = bookview.withcdordvd,
                 };
                 
                 _context.Add(book);
