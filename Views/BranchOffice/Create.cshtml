@@ -34,11 +34,8 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
 
-            @foreach (var item in bookList)
-            {
-                <div>@item.Name</div>   
-            }
-
+            <select class="" multiple asp-for="BookIds" id="Books" asp-items="ViewBag.Books" placeholder="select members" class="form-control w-50 dropdown">
+            </select>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
