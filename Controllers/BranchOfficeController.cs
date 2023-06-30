@@ -8,36 +8,38 @@ using Microsoft.EntityFrameworkCore;
 using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
 using BOOKSTORE00.ViewModels;
+using BOOKSTORE00.Services;
 
 namespace BOOKSTORE00.Controllers
 {
     public class BranchOfficeController : Controller
     {
-        
+        private IBranchOfficeService _branchofficeService;
 
-        public BranchOfficeController(BookContext context)
+        private IBookService _bookService;
+
+        public BranchOfficeController(IBranchOfficeService branchofficeService, IBookService bookService)
         {
-            _context = context;
+            _branchofficeService = branchofficeService;
+            _bookService = bookService;
         }
 
         // GET: BranchOffice
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var bookContext = _context.BranchOffice.Include(b => b.Books);
-            return View(await bookContext.ToListAsync());
+            var list = _branchofficeService.GetAll();
+            return View(list);
         }
 
         // GET: BranchOffice/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null || _context.BranchOffice == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var branchOffice = await _context.BranchOffice
-                .Include(b => b.Books)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var branchOffice = _branchofficeService.GetById(id.Value);
             if (branchOffice == null)
             {
                 return NotFound();
@@ -49,7 +51,8 @@ namespace BOOKSTORE00.Controllers
         // GET: BranchOffice/Create
         public IActionResult Create()
         {
-            ViewData["Books"] = _context.Book.ToList();
+            var booksList = _branchofficeService.GetAll();
+            ViewData["Books"] = new SelectList(new List<Book>(), "Id", "Name");
             return View();
         }
 
@@ -58,43 +61,44 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeCreateViewModel branchOfficeView)
-        {   
-            
+        public IActionResult Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeCreateViewModel branchOfficeView)
+        {
+
             if (ModelState.IsValid)
             {
                 //var books = _context.Book.Where(x=> branchOfficeView.BookIds.Contains(x.Id)).ToList();
 
-                var branchOffice = new BranchOffice{
+                var branchOffice = new BranchOffice
+                {
                     Name = branchOfficeView.Name,
                     Adress = branchOfficeView.Adress,
                     Mail = branchOfficeView.Mail,
                     Phone = branchOfficeView.Phone,
-                   // Books = books,               
+                    // Books = books,               
                 };
 
-                _context.Add(branchOffice);
-                await _context.SaveChangesAsync();
+                _branchofficeService.Create(branchOffice);
+
                 return RedirectToAction(nameof(Index));
             }
-            
+
             return View(branchOfficeView); // cuando el modelo no es válido
         }
 
         // GET: BranchOffice/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.BranchOffice == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var branchOffice = await _context.BranchOffice.FindAsync(id);
+            var branchOffice = _branchofficeService.GetById(id.Value);
             if (branchOffice == null)
             {
                 return NotFound();
             }
-           
+
             return View(branchOffice);
         }
 
@@ -103,48 +107,31 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeEditViewModel branchOfficeviewedit)
+        public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
         {
-            if (id != branchOfficeviewedit.Id)
+            if (id != branchOffice.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
-            {                               
-                try
-                {
-                    _context.Update(branchOfficeviewedit);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BranchOfficeExists(branchOfficeviewedit.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            {
+                _branchofficeService.Update(branchOffice);
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(branchOfficeviewedit);
+
+            return View(branchOffice);
         }
 
         // GET: BranchOffice/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null || _context.BranchOffice == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var branchOffice = await _context.BranchOffice
-                .Include(b => b.Books)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var branchOffice = _branchofficeService.GetById(id.Value);
             if (branchOffice == null)
             {
                 return NotFound();
@@ -156,25 +143,21 @@ namespace BOOKSTORE00.Controllers
         // POST: BranchOffice/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            if (_context.BranchOffice == null)
-            {
-                return Problem("Entity set 'BookContext.BranchOffice'  is null.");
-            }
-            var branchOffice = await _context.BranchOffice.FindAsync(id);
+
+            var branchOffice = _branchofficeService.GetById(id);
             if (branchOffice != null)
             {
-                _context.BranchOffice.Remove(branchOffice);
+                _branchofficeService.Delete(branchOffice);
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool BranchOfficeExists(int id)
         {
-          return (_context.BranchOffice?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _branchofficeService.GetById(id) != null;
         }
     }
 }

@@ -8,7 +8,7 @@ public class BranchOfficeService : IBranchOfficeService
 {
     private readonly BookContext _context;
 
-    public BranchOfficeService(BookContext context)
+    public BranchOfficeService(BookContext context) // Constructor recibe un objeto del tipo BookContext.
     {
         _context = context;
     }
