@@ -13,7 +13,7 @@ namespace BOOKSTORE00.Controllers
 {
     public class BranchOfficeController : Controller
     {
-        private readonly BookContext _context;
+        
 
         public BranchOfficeController(BookContext context)
         {

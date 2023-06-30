@@ -6,7 +6,7 @@ public interface IBranchOfficeService
 {
     void Create(BranchOffice obj);
 
-    List<BranchOffice> GetAll(string filter);
+    //List<BranchOffice> GetAll(string filter);
 
     List<BranchOffice> GetAll();
 
