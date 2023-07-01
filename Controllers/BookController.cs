@@ -8,59 +8,50 @@ using Microsoft.EntityFrameworkCore;
 using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
 using BOOKSTORE00.ViewModels;
+using BOOKSTORE00.Services;
 
 namespace BOOKSTORE00.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookContext _context;
+        private readonly IBookService _bookService;
 
-        public BookController(BookContext context)
+        public BookController(IBookService bookService)
         {
-            _context = context;
+            _bookService = bookService;
         }
 
-         public async Task<IActionResult> Index(string NameFilter) 
+        public IActionResult Index(string NameFilter)
         {
-            var query = from book in _context.Book select book; 
-
-            if (!string.IsNullOrEmpty(NameFilter)) 
-            {
-                query = query.Where(x => x.Name.ToLower().Contains(NameFilter.ToLower())
-                || x.Price.ToString().Contains(NameFilter.ToLower()));
-                
-            } 
-            
-        
-            var viewmodel = new BookViewModel();
-            viewmodel.Books = await query.ToListAsync(); 
-            
-            return _context.Book != null ?  
-                        View(viewmodel) : 
-                        
-                        Problem("Entity set 'BookContext.Book'  is null.");
+            var model = new BookViewModel();
+            model.Books = _bookService.GetAll(NameFilter);
+            return View(model);
         }
-
 
         // GET: Book/Details/5
-        public async Task<IActionResult> Details(int? id) // viene con llamada get (url)
+        public IActionResult Details(int? id)
         {
-            if (id == null || _context.Book == null)
-            {
-                return NotFound();
-            }
-            //Incluíme la relación .Traeme los datos de la relacion
-            
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id); // Trae el primero que coincida con el id que recibe por parametro.
-            if (book == null) 
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return View(book);
-            
+            var book = _bookService.GetById(id.Value);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var viewmodel = new BookCreateViewModel();
+            viewmodel.Name = book.Name;
+            viewmodel.Autor = book.Autor;
+            viewmodel.Editorial = book.Editorial;
+            viewmodel.Price = book.Price;
+            viewmodel.Condition = book.Condition;
+            viewmodel.withcdordvd = book.withcdordvd;
+
+            return View(viewmodel);
         }
-        
 
         // GET: Book/Create
         public IActionResult Create()
@@ -73,37 +64,26 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] BookCreateViewModel bookview)
+        public IActionResult Create([Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
         {
-        
+            ModelState.Remove("Branches");
             if (ModelState.IsValid)
             {
-                
-                var book = new Book {
-                    Name = bookview.Name,
-                    Autor = bookview.Autor,
-                    Editorial = bookview.Editorial,
-                    Price = bookview.Price,
-                    Condition = bookview.Condition,
-                    withcdordvd = bookview.withcdordvd,
-                };
-                
-                _context.Add(book);
-                await _context.SaveChangesAsync();
+                _bookService.Create(book);
                 return RedirectToAction(nameof(Index));
             }
-            return View(bookview);
+            return View(book);
         }
 
         // GET: Book/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = _bookService.GetById(id.Value);
             if (book == null)
             {
                 return NotFound();
@@ -116,7 +96,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
+        public IActionResult Edit(int id, [Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
         {
             if (id != book.Id)
             {
@@ -127,8 +107,8 @@ namespace BOOKSTORE00.Controllers
             {
                 try
                 {
-                    _context.Update(book);
-                    await _context.SaveChangesAsync();
+                    _bookService.Update(book);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,15 +127,15 @@ namespace BOOKSTORE00.Controllers
         }
 
         // GET: Book/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = _bookService.GetById(id.Value);
+
             if (book == null)
             {
                 return NotFound();
@@ -167,25 +147,15 @@ namespace BOOKSTORE00.Controllers
         // POST: Book/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            if (_context.Book == null)
-            {
-                return Problem("Entity set 'BookContext.Book'  is null.");
-            }
-            var book = await _context.Book.FindAsync(id);
-            if (book != null)
-            {
-                _context.Book.Remove(book);
-            }
-
-            await _context.SaveChangesAsync();
+            _bookService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-            return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _bookService.GetById(id) != null;
         }
     }
 }

@@ -11,6 +11,7 @@ builder.Services.AddDbContext<BookContext>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBranchOfficeService, BranchOfficeService>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 

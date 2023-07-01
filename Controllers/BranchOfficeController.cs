@@ -18,9 +18,10 @@ namespace BOOKSTORE00.Controllers
 
         private IBookService _bookService;
 
-        public BranchOfficeController(IBranchOfficeService branchofficeService)
+        public BranchOfficeController(IBranchOfficeService branchofficeService, IBookService bookService)
         {
             _branchofficeService = branchofficeService;
+            _bookService = bookService;
         }
 
         // GET: BranchOffice
@@ -50,8 +51,8 @@ namespace BOOKSTORE00.Controllers
         // GET: BranchOffice/Create
         public IActionResult Create()
         {
-            var booksList = _bookService.GetAll();
-            ViewData["Books"] = new SelectList(new List<Book>(), "Id", "Name");
+            var bookList = _bookService.GetAll();
+            ViewData["Books"] = new SelectList(bookList, "Id", "Name");
             return View();
         }
 

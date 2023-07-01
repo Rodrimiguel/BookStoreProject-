@@ -1,36 +1,67 @@
 using BOOKSTORE00.Models;
-namespace BOOKSTORE00.Services;
+using BOOKSTORE00.Data;
 using Microsoft.EntityFrameworkCore;
+
+namespace BOOKSTORE00.Services;
 
 public class BookService : IBookService
 {
+    private readonly BookContext _context;
+    public BookService(BookContext context)
+    {
+        _context = context;
+    }
     public void Create(Book obj)
     {
-        throw new NotImplementedException();
+        _context.Add(obj);
+        _context.SaveChanges();
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+         var obj = GetById(id);
+        
+        if (obj != null){
+            _context.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 
     public List<Book> GetAll(string filter)
     {
-        throw new NotImplementedException();
+        var query = GetQuery();
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(x => x.Name.Contains(filter));
+        }
+
+        return query.ToList();
     }
 
     public List<Book> GetAll()
     {
-        throw new NotImplementedException();
+        var query = GetQuery();
+        return query.ToList();
     }
 
     public Book? GetById(int id)
     {
-        throw new NotImplementedException();
+        var book = GetQuery()
+                .Include(x=> x.Branches)
+                .FirstOrDefault(m => m.Id == id);
+
+        return book;
     }
 
     public void Update(Book obj)
     {
-        throw new NotImplementedException();
+       _context.Update(obj);
+        _context.SaveChanges();
+    }
+
+    private IQueryable<Book> GetQuery()
+    {
+        return from book in _context.Book select book;
     }
 }
