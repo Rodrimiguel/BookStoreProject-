@@ -32,7 +32,7 @@ namespace BOOKSTORE00.Controllers
         }
 
         // GET: BranchOffice/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id) // Mandamos el Id y nos devuelve un elemento.
         {
             if (id == null)
             {

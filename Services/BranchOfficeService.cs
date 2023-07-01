@@ -38,11 +38,11 @@ public class BranchOfficeService : IBranchOfficeService
 
     public BranchOffice? GetById(int id)
     {
-        var brancheoffice = _context.BranchOffice
+        var branchOffice = _context.BranchOffice
                 .Include(r => r.Books)
                 .FirstOrDefault(m => m.Id == id);
 
-        return brancheoffice;
+        return branchOffice;
     }
 
     public void Update(BranchOffice obj)
