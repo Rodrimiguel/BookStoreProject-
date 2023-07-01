@@ -18,10 +18,9 @@ namespace BOOKSTORE00.Controllers
 
         private IBookService _bookService;
 
-        public BranchOfficeController(IBranchOfficeService branchofficeService, IBookService bookService)
+        public BranchOfficeController(IBranchOfficeService branchofficeService)
         {
             _branchofficeService = branchofficeService;
-            _bookService = bookService;
         }
 
         // GET: BranchOffice
@@ -51,7 +50,7 @@ namespace BOOKSTORE00.Controllers
         // GET: BranchOffice/Create
         public IActionResult Create()
         {
-            var booksList = _branchofficeService.GetAll();
+            var booksList = _bookService.GetAll();
             ViewData["Books"] = new SelectList(new List<Book>(), "Id", "Name");
             return View();
         }
@@ -61,7 +60,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Adress,Mail,Phone")] BranchOfficeCreateViewModel branchOfficeView)
+        public IActionResult Create([Bind("Id,Name,Adress,Mail,Phone,BookIds")] BranchOfficeCreateViewModel branchOfficeView)
         {
 
             if (ModelState.IsValid)
@@ -107,7 +106,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone")] BranchOffice branchOffice)
+        public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone,BookBranchOffice")] BranchOffice branchOffice)
         {
             if (id != branchOffice.Id)
             {
