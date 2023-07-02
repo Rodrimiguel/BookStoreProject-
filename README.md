@@ -8,6 +8,11 @@ AÑO : << 2023 >>
 
 ![Badge en desarrollo](https://img.shields.io/badge/STATUS-developing-blue) ![Badge de licencia](https://img.shields.io/badge/LICENSE-open-yellow) ![Badge del lenguaje](https://img.shields.io/badge/LANGUAGE-C%23-red)
 
+📱Datos de Contacto <br>
+![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) rodrigomfoggia84@gmail.com <br>
+![Likedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) https://ar.linkedin.com/in/rodrigo-m-foggia-3312661a <br>
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) https://github.com/Rodrimiguel <br>
+
 ##  - DESCRIPCIÓN DEL PROYECTO -
 El proyecto en cuestón abarca la entrada y salida de libros en el sistema, es decir el stock tanto en casa central como en sus otras sucursales. Los libros puede llegar a variar de acuerdo a su condición, lo cual pueden usados o nuevos, y eso impactará en el precio de los mismos.  Pensamos crear / agregar un sector depósito que ayude tanto a la casa central como a las distintas sucursales una especie de sub-sistema que indique cuando un libro se esté por quedar sin stock y ver si en alguna otra sucursal se encuentra disponible, hasta que se haga la reposición necesaria de la sucursal sin-stock. En caso de no poder y que tampoco este disponible en alguna otra sucursal, el mismo se encontraría en estado agotado.
 
