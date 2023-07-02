@@ -6,7 +6,13 @@ FUNDADOR : << RODRIGO M. FOGGIA >>
 
 AÑO : << 2023 >>
 
-![Badge en desarrollo](https://img.shields.io/badge/STATUS-developing-blue) ![Badge de licencia](https://img.shields.io/badge/LICENSE-open-yellow) ![Badge del lenguaje](https://img.shields.io/badge/LANGUAGE-C%23-red)
+💻Tecnologia Utilizadas <br>
+![Badge en desarrollo](https://img.shields.io/badge/STATUS-developing-blue) ![Badge de licencia](https://img.shields.io/badge/LICENSE-open-yellow) <br>
+![Badge del lenguaje](https://img.shields.io/badge/LANGUAGE-C%23-red)
+![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=blue)
+![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=grenn)
+![](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=yellow)
+![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=grey) <br>
 
 📱Datos de Contacto <br>
 ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) rodrigomfoggia84@gmail.com <br>
