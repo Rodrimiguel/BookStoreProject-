@@ -8,14 +8,14 @@
 <h1>BOOKS</h1>
 
 <p>
-    <button type="button" class="btn btn-info"><a class="Links" asp-action="Create" >CREATE BOOK</a></button>
+    <button type="button" class="btn btn-primary"><a class="Links" asp-action="Create" >CREATE BOOK</a></button>
 </p>
 <div class="row">
     <form method="get" asp-action="Index" asp-controller="Book">
         <div class="col-6 form-group">
             <input class="form-control" asp-for="NameFilter" />
         </div>
-        <button class="btn btn-danger" type="submit">SEARCH</button>
+        <button class="btn btn-info" type="submit">SEARCH</button>
     </form>
 </div>
 <table class ="table">
@@ -64,9 +64,9 @@
                     @Html.DisplayFor(modelItem => item.withcdordvd)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <button type="button" class="btn btn-primary"><a asp-action="Edit" asp-route-id="@item.Id">Edit</a></button> 
+                    <button type="button" class="btn btn-success"><a asp-action="Details" asp-route-id="@item.Id">Details</a></button>
+                    <button type="button" class="btn btn-danger"><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
                 </td>
             </tr>
         }
