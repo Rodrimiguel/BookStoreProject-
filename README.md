@@ -10,7 +10,7 @@ AÑO : << 2023 >>
 
 
 💻Tecnologia Utilizadas <br>
-![Badge del lenguaje](https://img.shields.io/badge/LANGUAGE-C%23-red) <br>
+![Badge del lenguaje](https://img.shields.io/badge/LANGUAGE-C%23-blue) <br>
 ![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=blue)
 ![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=blue)
 ![](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=blue)
