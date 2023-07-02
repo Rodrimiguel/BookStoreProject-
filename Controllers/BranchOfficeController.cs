@@ -10,6 +10,7 @@ using BOOKSTORE00.Models;
 using BOOKSTORE00.ViewModels;
 using BOOKSTORE00.Services;
 
+
 namespace BOOKSTORE00.Controllers
 {
     public class BranchOfficeController : Controller
@@ -25,11 +26,22 @@ namespace BOOKSTORE00.Controllers
         }
 
         // GET: BranchOffice
+        /*
         public IActionResult Index()
         {
             var list = _branchofficeService.GetAll();
             return View(list);
         }
+        */
+
+        
+         public IActionResult Index(string NameFilter)
+        {
+            var model = new BranchOfficeViewModel();
+            model.Branches = _branchofficeService.GetAll(NameFilter);
+            return View(model);
+        }
+        
 
         // GET: BranchOffice/Details/5
         public IActionResult Details(int? id) // Mandamos el Id y nos devuelve un elemento.

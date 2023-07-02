@@ -24,12 +24,19 @@ public class BranchOfficeService : IBranchOfficeService
         _context.SaveChanges();
     }
   
-    /*
     public List<BranchOffice> GetAll(string filter)
     {
-        
+        var query = GetQuery();
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(x => x.Name.ToLower().Contains(filter.ToLower())
+            || x.Adress.ToLower().Contains(filter.ToLower())
+            || x.Phone.ToString().Contains(filter));
+        }
+
+        return query.ToList();
     }
-    */
     
     public List<BranchOffice> GetAll()
     {
@@ -47,6 +54,12 @@ public class BranchOfficeService : IBranchOfficeService
 
     public void Update(BranchOffice obj)
     {
-        
+        _context.Update(obj);
+        _context.SaveChanges();
+    }
+
+     private IQueryable<BranchOffice> GetQuery()
+    {
+        return from branchOffice in _context.BranchOffice select branchOffice ;
     }
 }

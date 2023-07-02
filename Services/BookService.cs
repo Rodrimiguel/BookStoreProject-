@@ -33,7 +33,8 @@ public class BookService : IBookService
 
         if (!string.IsNullOrEmpty(filter))
         {
-            query = query.Where(x => x.Name.Contains(filter));
+            query = query.Where(x => x.Name.ToLower().Contains(filter.ToLower())
+                || x.Editorial.ToLower().Contains(filter.ToLower()));
         }
 
         return query.ToList();

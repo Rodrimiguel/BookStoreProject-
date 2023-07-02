@@ -4,6 +4,7 @@ namespace BOOKSTORE00.ViewModels;
 
 public class BranchOfficeCreateViewModel
 { // CREACION DE VIEWMODEL
+    internal List<BranchOffice> branches;
 
     public int Id { get; set; }
 
@@ -18,6 +19,9 @@ public class BranchOfficeCreateViewModel
 
 
     public string Phone { get; set; }
+
+
+     public string? NameFilter {get;set;} // Puede venir nula.
 
 
     //public List <int> BookIds {get;set;}

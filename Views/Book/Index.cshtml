@@ -8,14 +8,14 @@
 <h1>BOOKS</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-info"><a class="Links" asp-action="Create" >CREATE BOOK</a></button>
 </p>
 <div class="row">
     <form method="get" asp-action="Index" asp-controller="Book">
         <div class="col-6 form-group">
             <input class="form-control" asp-for="NameFilter" />
         </div>
-        <button class="btn" type="submit">BUSCAR</button>
+        <button class="btn btn-danger" type="submit">SEARCH</button>
     </form>
 </div>
 <table class ="table">
