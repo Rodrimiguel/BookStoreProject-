@@ -32,7 +32,7 @@ public class BranchOfficeService : IBranchOfficeService
         {
             query = query.Where(x => x.Name.ToLower().Contains(filter.ToLower())
             || x.Adress.ToLower().Contains(filter.ToLower())
-            || x.Phone.ToString().Contains(filter));
+            || x.Phone.Contains(filter));
         }
 
         return query.ToList();
