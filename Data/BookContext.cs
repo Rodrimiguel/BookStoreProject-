@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BOOKSTORE00.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BOOKSTORE00.Data
 {
-    public class BookContext : DbContext
+    public class BookContext : IdentityDbContext
     {
         public BookContext(DbContextOptions<BookContext> options)
             : base(options)
@@ -27,8 +28,8 @@ namespace BOOKSTORE00.Data
             .HasMany(p => p.Branches)
             .WithMany(p => p.Books)
             .UsingEntity("BookBranchOffice");
-            
-            
+
+            base.OnModelCreating(modelBuilder);            
         }
     }
 }
