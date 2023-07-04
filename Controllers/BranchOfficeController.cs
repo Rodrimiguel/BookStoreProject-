@@ -9,6 +9,7 @@ using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
 using BOOKSTORE00.ViewModels;
 using BOOKSTORE00.Services;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace BOOKSTORE00.Controllers
@@ -42,7 +43,7 @@ namespace BOOKSTORE00.Controllers
             return View(model);
         }
         
-
+        [Authorize(Roles = "Principal Administrator")]
         // GET: BranchOffice/Details/5
         public IActionResult Details(int? id) // Mandamos el Id y nos devuelve un elemento.
         {
@@ -60,6 +61,7 @@ namespace BOOKSTORE00.Controllers
             return View(branchOffice);
         }
 
+        [Authorize(Roles = "Principal Administrator")]
         // GET: BranchOffice/Create
         public IActionResult Create()
         {
@@ -97,6 +99,7 @@ namespace BOOKSTORE00.Controllers
             return View(branchOfficeView); // cuando el modelo no es válido
         }
 
+        [Authorize(Roles = "Principal Administrator")]
         // GET: BranchOffice/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -119,6 +122,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Principal Administrator")]
         public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone,BookBranchOffice")] BranchOffice branchOffice)
         {
             if (id != branchOffice.Id)
@@ -135,6 +139,7 @@ namespace BOOKSTORE00.Controllers
             return View(branchOffice);
         }
 
+        [Authorize(Roles = "Principal Administrator")]
         // GET: BranchOffice/Delete/5
         public IActionResult Delete(int? id)
         {
@@ -152,6 +157,7 @@ namespace BOOKSTORE00.Controllers
             return View(branchOffice);
         }
 
+        [Authorize(Roles = "Principal Administrator")]
         // POST: BranchOffice/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

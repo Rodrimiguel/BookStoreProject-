@@ -9,6 +9,7 @@ using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
 using BOOKSTORE00.ViewModels;
 using BOOKSTORE00.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BOOKSTORE00.Controllers
 {
@@ -28,6 +29,7 @@ namespace BOOKSTORE00.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Details/5
         public IActionResult Details(int? id)
         {
@@ -53,6 +55,7 @@ namespace BOOKSTORE00.Controllers
             return View(viewmodel);
         }
 
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Create
         public IActionResult Create()
         {
@@ -64,6 +67,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         public IActionResult Create([Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
         {
             ModelState.Remove("Branches");
@@ -75,6 +79,7 @@ namespace BOOKSTORE00.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -96,6 +101,7 @@ namespace BOOKSTORE00.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         public IActionResult Edit(int id, [Bind("Id,Name,Autor,Editorial,Price,Condition,withcdordvd")] Book book)
         {
             if (id != book.Id)
@@ -126,6 +132,7 @@ namespace BOOKSTORE00.Controllers
             return View(book);
         }
 
+       [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Delete/5
         public IActionResult Delete(int? id)
         {
@@ -144,6 +151,7 @@ namespace BOOKSTORE00.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // POST: Book/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
