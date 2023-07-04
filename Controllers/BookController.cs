@@ -134,6 +134,47 @@ namespace BOOKSTORE00.Controllers
             return View(book);
         }
 
+        public IActionResult UpdatePrice(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = _bookService.GetById(id.Value);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new BookUpdatePriceViewModel {
+                Id = book.Id,
+                Name = book.Name,
+                Price = book.Price
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdatePrice(BookUpdatePriceViewModel model)
+        {
+            var book = _bookService.GetById(model.Id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            if (model.Percent > 0 )
+            {
+                book.Price = (model.Percent * book.Price / 100) + book.Price;
+                _bookService.Update(book);
+                
+            }
+
+            return RedirectToAction("Index");
+        }
+
        [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Delete/5
         public IActionResult Delete(int? id)

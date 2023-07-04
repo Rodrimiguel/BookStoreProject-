@@ -18725,6 +18725,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\Book\\UpdatePrice.cshtml",
+      "TargetPath": "Views\\Book\\UpdatePrice.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Rodrigo\\Desktop\\Proyects\\BookStoreProject\\BOOKSTORE00\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
