@@ -1,4 +1,5 @@
 using BOOKSTORE00.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BOOKSTORE00.ViewModels;
 
@@ -21,9 +22,12 @@ public class BranchOfficeCreateViewModel
     public string Phone { get; set; }
 
 
-     public string? NameFilter {get;set;} // Puede venir nula.
+     //public string? NameFilter {get;set;} // Puede venir nula.
 
 
-    //public List <int> BookIds {get;set;}
+    public List <int> BookIds {get;set;}
+
+
+    //public SelectList BookItems {get;set;}
 
 }

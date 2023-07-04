@@ -19,4 +19,7 @@ public class BranchOfficeEditViewModel
 
     public string Phone { get; set; }
 
+    
+    public List <int> BookIds {get;set;}
+
 }

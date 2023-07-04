@@ -1,4 +1,5 @@
 using BOOKSTORE00.Models;
+using BOOKSTORE00.ViewModels;
 
 namespace BOOKSTORE00.Services;
 
@@ -15,4 +16,5 @@ public interface IBranchOfficeService
     void Delete(BranchOffice obj);
 
     BranchOffice? GetById(int id);
+    void Update(BranchOfficeEditViewModel branchOffice);
 }

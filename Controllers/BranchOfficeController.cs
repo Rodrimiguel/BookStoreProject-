@@ -80,7 +80,7 @@ namespace BOOKSTORE00.Controllers
 
             if (ModelState.IsValid)
             {
-                //var books = _context.Book.Where(x=> branchOfficeView.BookIds.Contains(x.Id)).ToList();
+                var books = _bookService.GetAll().Where(x=> branchOfficeView.BookIds.Contains(x.Id)).ToList();
 
                 var branchOffice = new BranchOffice
                 {
@@ -88,7 +88,7 @@ namespace BOOKSTORE00.Controllers
                     Adress = branchOfficeView.Adress,
                     Mail = branchOfficeView.Mail,
                     Phone = branchOfficeView.Phone,
-                    // Books = books,               
+                    Books = books               
                 };
 
                 _branchofficeService.Create(branchOffice);
@@ -123,7 +123,7 @@ namespace BOOKSTORE00.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Principal Administrator")]
-        public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone,BookBranchOffice")] BranchOffice branchOffice)
+        public IActionResult Edit(int id, [Bind("Id,Name,Adress,Mail,Phone,BookIds")] BranchOffice branchOffice)
         {
             if (id != branchOffice.Id)
             {

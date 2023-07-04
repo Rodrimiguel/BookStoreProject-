@@ -1,5 +1,6 @@
 using BOOKSTORE00.Data;
 using BOOKSTORE00.Models;
+using BOOKSTORE00.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace BOOKSTORE00.Services;
@@ -58,7 +59,12 @@ public class BranchOfficeService : IBranchOfficeService
         _context.SaveChanges();
     }
 
-     private IQueryable<BranchOffice> GetQuery()
+    public void Update(BranchOfficeEditViewModel branchOffice)
+    {
+        throw new NotImplementedException();
+    }
+
+    private IQueryable<BranchOffice> GetQuery()
     {
         return from branchOffice in _context.BranchOffice select branchOffice ;
     }

@@ -3,7 +3,7 @@ using BOOKSTORE00.Utils;
 
 namespace BOOKSTORE00.ViewModels;
 
-public class BookCreateViewModel
+public class BookDetailViewModel
 { // CREACION DE VIEWMODEL
 
     public int Id { get; set; } // ID PARA BASE DE DATOS.
@@ -24,10 +24,6 @@ public class BookCreateViewModel
     public BookCondition Condition { get; set; }
 
 
-    public bool withcdordvd { get; set; } = false; // BOOLEANO (PUEDE VENIR CON CD/DVD O NO.)
-
-    public virtual List<BranchOffice>? Branches { get; set; }
+    public bool withcdordvd { get; set; } = false;
 
 }
-
-

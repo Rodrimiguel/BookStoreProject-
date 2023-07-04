@@ -44,13 +44,15 @@ namespace BOOKSTORE00.Controllers
                 return NotFound();
             }
 
-            var viewmodel = new BookCreateViewModel();
+            var viewmodel = new BookDetailViewModel();
             viewmodel.Name = book.Name;
             viewmodel.Autor = book.Autor;
             viewmodel.Editorial = book.Editorial;
             viewmodel.Price = book.Price;
             viewmodel.Condition = book.Condition;
             viewmodel.withcdordvd = book.withcdordvd;
+            //viewmodel.Branches = book.Branches != null? book.Branches : new List<BranchOffice>();
+            
 
             return View(viewmodel);
         }
@@ -81,7 +83,7 @@ namespace BOOKSTORE00.Controllers
 
         [Authorize(Roles = "Principal Administrator, Administrator , Bookseller")]
         // GET: Book/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
